@@ -2,6 +2,14 @@
 <html>
     <head>
         <title>asd</title>
+        <script defer>
+            async function asd() {
+                var annuncio = await (await fetch('/annunci?id=1')).json()
+                console.log(annuncio)
+            }
+            asd();
+            
+        </script>
     </head>
     <body>
         <h1>asd</h1>
