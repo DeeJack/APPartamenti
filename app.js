@@ -1,36 +1,28 @@
 var express = require('express')
 var dotenv = require('dotenv') // https://www.npmjs.com/package/dotenv
 var app = express()
-const {
-    MongoClient
-} = require("mongodb");
+dotenv.config() // Load the .env file
 
-const connectionString = process.env.ATLAS_URI;
-const client = new MongoClient(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-client.connect(function (err, db) {
-    if (err || !db) {
-        console.error(err);
-    }
-
-    dbConnection = db.db("sample_airbnb");
-    console.log("Successfully connected to MongoDB.");
-});
-
-
-var annunci = require('./api/annunci')
-
-app.use(express.static('public'))
-
-app.get('/', (request, response) => {
-    response.redirect('/index.html')
+var mongodb = require('./api/database')
+mongodb.connectToServer((err) => {
+    if (err)
+        console.error(err)
 })
 
-app.use('/annunci/', annunci)
+const port = 80
 
-app.listen(80, () => {
-    console.log('listening')
+app.use(express.static('public')) // Static files (html files, scripts, css)
+
+app.get('/', (request, response) => {
+    response.redirect('/views/index.html')
+})
+
+var annunci = require('./api/annunci')
+var roles = require('./api/roles')
+
+app.use('/annunci/', annunci)
+app.use('/roles/', roles)
+
+app.listen(port, () => {
+    console.log('listening on port:', port)
 })
