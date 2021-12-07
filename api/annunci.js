@@ -15,9 +15,9 @@ router.get('/', (request, response) => {
         .find({}).limit(50)
         .toArray(function (err, result) {
             if (err) {
-                res.status(400).send("Error fetching listings!");
+                response.status(400).send("Error fetching listings!");
             } else {
-                res.json(result);
+                response.json(result);
             }
         });
 })
@@ -32,9 +32,9 @@ router.get('/:id', (request, response) => {
         }).limit(50)
         .toArray(function (err, result) {
             if (err) {
-                res.status(400).send("Error fetching listings!");
+                response.status(400).send("Error fetching listings!");
             } else {
-                res.json(result);
+                response.json(result);
             }
         });
 })
