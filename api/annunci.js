@@ -2,7 +2,9 @@ var express = require('express')
 var router = express.Router();
 var dbo = require("./database")
 var bodyParser = require('body-parser');
-const { ObjectId } = require('bson');
+const {
+    ObjectId
+} = require('bson');
 
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
@@ -40,7 +42,7 @@ router.get('/:id', (request, response) => {
         });
 })
 
-router.post('/', urlencodedParser,(request, response) => {
+router.post('/', urlencodedParser, (request, response) => {
     console.log('Got body:', request.body);
     const dbConnect = dbo.getDb();
 
@@ -75,13 +77,25 @@ router.post('/', urlencodedParser,(request, response) => {
 router.put('/', (request, response) => {
     const dbConnect = dbo.getDb();
     const listingQuery = {
-        _id: new ObjectId(request.body.id)
+        _id: new ObjectId(request.body['_id'])
     };
     const updates = {
-        $inc: {
-            likes: 1
+        $set: {
+            titolo: request.body['titolo'],
+            ubicazione: request.body['ubicazione'],
+            prezzo: request.body['prezzo'],
+            numBagni: request.body['numBagni'],
+            isolamento: request.body['isolamento'],
+            riscaldamento: request.body['riscaldamento'],
+            wifi: request.body['wifi'],
+            servizi: request.body['servizi'],
+            classeEnergetica: request.body['classeEnergetica'],
+            foto: request.body['foto'],
+            proprietario: request.body['proprietario'],
         }
     };
+    updates.$set.proprietario._id = new ObjectId(updates.$set.proprietario._id)
+    console.log(updates)
 
     dbConnect
         .collection("annunci")
@@ -89,6 +103,7 @@ router.put('/', (request, response) => {
             if (err) {
                 response.status(400).send(`Error updating likes on listing with id ${listingQuery.id}!`);
             } else {
+                console.log(_result)
                 response.send('Updated')
                 console.log("1 document updated");
             }
@@ -98,7 +113,7 @@ router.put('/', (request, response) => {
 router.delete('/:id', (request, response) => {
     const dbConnect = dbo.getDb();
     const listingQuery = {
-        _id: request.params['id']
+        _id: new ObjectId(request.params['id'])
     };
 
     dbConnect
