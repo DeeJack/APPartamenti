@@ -57,6 +57,7 @@ router.post('/', urlencodedParser,(request, response) => {
         foto: request.body['foto'],
         proprietario: request.body['proprietario'],
     };
+    matchDocument.proprietario._id = new ObjectId(matchDocument.proprietario._id)
     console.log(matchDocument)
 
     dbConnect
@@ -74,7 +75,7 @@ router.post('/', urlencodedParser,(request, response) => {
 router.put('/', (request, response) => {
     const dbConnect = dbo.getDb();
     const listingQuery = {
-        _id: request.body.id
+        _id: new ObjectId(request.body.id)
     };
     const updates = {
         $inc: {

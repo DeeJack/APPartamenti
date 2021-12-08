@@ -23,6 +23,21 @@ router.get('/', (request, response) => {
         });
 })
 
+router.get('/:id/', (request, response) => {
+    const dbConnect = dbo.getDb();
+    console.log(request.params['id'])
+
+    dbConnect
+        .collection("annunci")
+        .findOne({"proprietario._id": new ObjectId(request.params['id'])}, function (err, result) {
+            if (err) {
+                response.status(400).send("Error fetching listings!");
+            } else {
+                response.json(result);
+            }
+        });
+})
+
 router.post('/', urlencodedParser, (request, response) => {
     console.log('Got body:', request.body);
     const dbConnect = dbo.getDb();
