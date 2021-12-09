@@ -57,7 +57,7 @@ router.post('/', urlencodedParser, (request, response) => {
         servizi: request.body['servizi'],
         classeEnergetica: request.body['classeEnergetica'],
         foto: request.body['foto'],
-        proprietario: request.body['proprietario'],
+        proprietario: request.cookies.user,
     };
     matchDocument.proprietario._id = new ObjectId(matchDocument.proprietario._id)
     console.log(matchDocument)
@@ -91,7 +91,7 @@ router.put('/', (request, response) => {
             servizi: request.body['servizi'],
             classeEnergetica: request.body['classeEnergetica'],
             foto: request.body['foto'],
-            proprietario: request.body['proprietario'],
+            proprietario: request.cookies.user,
         }
     };
     updates.$set.proprietario._id = new ObjectId(updates.$set.proprietario._id)
