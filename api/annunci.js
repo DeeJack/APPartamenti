@@ -49,6 +49,7 @@ router.post('/', urlencodedParser, (request, response) => {
     const matchDocument = {
         titolo: request.body['titolo'],
         ubicazione: request.body['ubicazione'],
+        numCamere: request.body['numCamere'],
         prezzo: request.body['prezzo'],
         numBagni: request.body['numBagni'],
         isolamento: request.body['isolamento'],
@@ -83,6 +84,7 @@ router.put('/', (request, response) => {
         $set: {
             titolo: request.body['titolo'],
             ubicazione: request.body['ubicazione'],
+            numCamere: request.body['numCamere'],
             prezzo: request.body['prezzo'],
             numBagni: request.body['numBagni'],
             isolamento: request.body['isolamento'],
