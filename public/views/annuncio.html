@@ -99,9 +99,9 @@
         <p id="numBagni">Numero di bagni:</p>
         <p id="isolamento">Isolamento:</p>
         <p id="riscaldamento">Riscaldamento:</p>
+        <p id="classeEnergetica">Classe energetica:</p>
         <p id="wifi">Wifi:</p>
         <p id="servizi">Servizi:</p>
-        <p id="classeEnergetica">Classe energetica:</p>
         <p id="inquilini">Inquilini:</p>
         <p class="text-right"><small id="modifica">Ultima modifica:</small></p>
         <!--descrizione? Ubicazione, numCamere, numBagni, isolamento, riscaldamento, wifi
@@ -127,6 +127,8 @@
             isolamento.innerHTML = "Isolamento: " + annuncio[i].isolamento;
             var riscaldamento = document.getElementById("riscaldamento");
             riscaldamento.innerHTML = "Riscaldamento: " + annuncio[i].riscaldamento;
+            var classeEnergetica = document.getElementById("classeEnergetica");
+            classeEnergetica.innerHTML = "Classe energetica: " + annuncio[i].classeEnergetica;
             var wifi = document.getElementById("wifi");
             if (annuncio[i].wifi)
                 wifi.innerHTML = "Wifi incluso"
@@ -138,6 +140,11 @@
 
             var proprietario = document.getElementById("proprietario");
             proprietario.innerHTML = annuncio[i].proprietario.name;
+
+            var servizi = document.getElementById("servizi");
+            for (var x = 0; x < annuncio[i].servizi.length; x++) {
+                servizi.innerHTML = servizi.innerHTML + ", " + annuncio[i].servizi[x];
+            }
 
         }
         scrivi();
