@@ -66,8 +66,8 @@
     </script>
 
     <div class="container" style="margin-top:30px; padding:30px">
-        <h4>Titolo annuncio</h4>
-        <small>Proprietario</small>
+        <h4 id="titolo"></h4>
+        <a href="#"><small id="proprietario">Proprietario</small></a>
         <br><br>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -94,18 +94,54 @@
             </a>
         </div>
         <br />
-        <p>Ubicazione:</p>
-        <p>Numero di camere:</p>
-        <p>Numero di bagni:</p>
-        <p>Isolamento:</p>
-        <p>Riscaldamento:</p>
-        <p>Wifi:</p>
-        <p>Servizi:</p>
-        <p>Classe energetica:</p>
-        <p>Inquilini:</p>
-        <p class="text-right"><small>Ultima modifica:</small></p>
+        <p id="ubicazione">Ubicazione:</p>
+        <p id="numCamere">Numero di camere:</p>
+        <p id="numBagni">Numero di bagni:</p>
+        <p id="isolamento">Isolamento:</p>
+        <p id="riscaldamento">Riscaldamento:</p>
+        <p id="wifi">Wifi:</p>
+        <p id="servizi">Servizi:</p>
+        <p id="classeEnergetica">Classe energetica:</p>
+        <p id="inquilini">Inquilini:</p>
+        <p class="text-right"><small id="modifica">Ultima modifica:</small></p>
         <!--descrizione? Ubicazione, numCamere, numBagni, isolamento, riscaldamento, wifi
     servizi, classeEnergetica, dataModifica, proprietario, inquilini-->
     </div>
+
+    <script>
+        async function scrivi() {
+            var annuncio = await(await fetch('/annunci')).json();
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var i = url.searchParams.get("id");
+            console.log(annuncio[i]);
+            var titolo = document.getElementById("titolo");
+            titolo.innerHTML = annuncio[i].titolo;
+            var ubicazione = document.getElementById("ubicazione");
+            ubicazione.innerHTML = "Ubicazione: " + annuncio[i].ubicazione;
+            var numCamere = document.getElementById("numCamere");
+            numCamere.innerHTML = "Numero di camere: " + annuncio[i].numCamere;
+            var numBagni = document.getElementById("numBagni");
+            numBagni.innerHTML = "Numero di bagni: " + annuncio[i].numBagni;
+            var isolamento = document.getElementById("isolamento");
+            isolamento.innerHTML = "Isolamento: " + annuncio[i].isolamento;
+            var riscaldamento = document.getElementById("riscaldamento");
+            riscaldamento.innerHTML = "Riscaldamento: " + annuncio[i].riscaldamento;
+            var wifi = document.getElementById("wifi");
+            if (annuncio[i].wifi)
+                wifi.innerHTML = "Wifi incluso"
+            else
+                wifi.innerHTML = "Wifi non incluso"
+
+            var modifica = document.getElementById("modifica");
+            modifica.innerHTML = "Ultima modifica: " + annuncio[i].dataModifica;
+
+            var proprietario = document.getElementById("proprietario");
+            proprietario.innerHTML = annuncio[i].proprietario.name;
+
+        }
+        scrivi();
+        
+    </script>
 </body>
 </html>
