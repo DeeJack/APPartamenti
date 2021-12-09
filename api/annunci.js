@@ -12,11 +12,11 @@ var urlencodedParser = bodyParser.urlencoded({
 
 
 router.get('/', (request, response) => {
-    const dbConnect = dbo.getDb();
+    const dbConnect = dbo.getDb(); // Ottiene la connessione al database
 
     dbConnect
         .collection("annunci")
-        .find({}).limit(50)
+        .find({}).limit(50) // Cerca 50 annunci dalla collezione annunci
         .toArray(function (err, result) {
             if (err) {
                 response.status(400).send("Error fetching listings!");
@@ -27,11 +27,11 @@ router.get('/', (request, response) => {
 })
 
 router.get('/:id', (request, response) => {
-    const dbConnect = dbo.getDb();
+    const dbConnect = dbo.getDb(); // Ottiene la connessione al database
 
     dbConnect
         .collection("annunci")
-        .findOne({
+        .findOne({ // Cerca un annuncio con un certo ID
             _id: new ObjectId(request.params['id'])
         }, function (err, result) {
             if (err) {
@@ -44,9 +44,9 @@ router.get('/:id', (request, response) => {
 
 router.post('/', urlencodedParser, (request, response) => {
     console.log('Got body:', request.body);
-    const dbConnect = dbo.getDb();
+    const dbConnect = dbo.getDb();  // Ottiene la connessione al database
 
-    const matchDocument = {
+    const matchDocument = { // Crea un oggetto prendendo le informazioni dal body
         titolo: request.body['titolo'],
         ubicazione: request.body['ubicazione'],
         numCamere: request.body['numCamere'],
@@ -58,14 +58,13 @@ router.post('/', urlencodedParser, (request, response) => {
         servizi: request.body['servizi'],
         classeEnergetica: request.body['classeEnergetica'],
         foto: request.body['foto'],
-        proprietario: request.cookies.user,
+        proprietario: request.cookies.user, // Prende l'utente dai cookies
     };
     matchDocument.proprietario._id = new ObjectId(matchDocument.proprietario._id)
-    console.log(matchDocument)
 
     dbConnect
         .collection("annunci")
-        .insertOne(matchDocument, function (err, result) {
+        .insertOne(matchDocument, function (err, result) { // Inserisce l'annuncio
             if (err) {
                 response.status(400).send("Error inserting listings!");
             } else {
@@ -76,9 +75,9 @@ router.post('/', urlencodedParser, (request, response) => {
 })
 
 router.put('/', (request, response) => {
-    const dbConnect = dbo.getDb();
+    const dbConnect = dbo.getDb();  // Ottiene la connessione al database
     const listingQuery = {
-        _id: new ObjectId(request.body['_id'])
+        _id: new ObjectId(request.body['_id']) // Prende l'ID dell'annuncio da modificare
     };
     const updates = {
         $set: {
@@ -101,7 +100,7 @@ router.put('/', (request, response) => {
 
     dbConnect
         .collection("annunci")
-        .updateOne(listingQuery, updates, function (err, _result) {
+        .updateOne(listingQuery, updates, function (err, _result) { // Aggiorna l'annuncio
             if (err) {
                 response.status(400).send(`Error updating likes on listing with id ${listingQuery.id}!`);
             } else {
