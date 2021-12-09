@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profilo</title>
+    <title>Annuncio</title>
     <script defer>
         async function asd() {
             var annuncio = await (await fetch('/annunci?id=1')).json()
@@ -17,10 +17,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .fakeimg {
-            height: 200px;
+            height: 300px;
             background: #aaa;
         }
     </style>
+    <script>
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var c = url.searchParams.get("id");
+        document.title = c;
+    </script>
 </head>
 <body>
     <div class="jumbotron text-center" style="margin-bottom:0">
@@ -58,5 +64,48 @@
         var c = url.searchParams.get("id");
         console.log(c);
     </script>
+
+    <div class="container" style="margin-top:30px; padding:30px">
+        <h4>Titolo annuncio</h4>
+        <small>Proprietario</small>
+        <br><br>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="fakeimg">1</div>
+                    <!--<img class="d-block w-100" src="..." alt="First slide">-->
+                </div>
+                <div class="carousel-item">
+                    <div class="fakeimg">2</div>
+                    <!--<img class="d-block w-100" src="..." alt="Second slide">-->
+                </div>
+                <div class="carousel-item">
+                    <div class="fakeimg">3</div>
+                    <!--<img class="d-block w-100" src="..." alt="Third slide">-->
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <br />
+        <p>Ubicazione:</p>
+        <p>Numero di camere:</p>
+        <p>Numero di bagni:</p>
+        <p>Isolamento:</p>
+        <p>Riscaldamento:</p>
+        <p>Wifi:</p>
+        <p>Servizi:</p>
+        <p>Classe energetica:</p>
+        <p>Inquilini:</p>
+        <p class="text-right"><small>Ultima modifica:</small></p>
+        <!--descrizione? Ubicazione, numCamere, numBagni, isolamento, riscaldamento, wifi
+    servizi, classeEnergetica, dataModifica, proprietario, inquilini-->
+    </div>
 </body>
 </html>
