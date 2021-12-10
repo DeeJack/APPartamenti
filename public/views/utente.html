@@ -51,5 +51,58 @@
             </ul>
         </div>
     </nav>
+    <div class="container" style="margin-top:30px; padding:30px">
+        <h4 id="nomeUtente">Nome Utente</h4>
+        <br>
+        <br>
+        <p id="nome">Nome: </p>
+        <p id="eta">Et&Agrave;: </p>
+        <p id="genere">Genere: </p>
+        <p id="uni">Universit&Agrave;: </p>
+        <p id="hobby">Hobby: </p>
+        <p id="appartamento">Appartamento: </p>
+        <p id="descrizione">Descrizione: </p>
+        <!--recensioni e se sospeso-->
+    </div>
+    <script>
+        async function scrivi() {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var i = url.searchParams.get("id");
+            var utenti = await (await fetch('/users/'+i)).json();
+            
+            console.log(utenti[i]);
+
+            var nome = document.getElementById("nome");
+            nome.innerHTML = utenti[i].nome;
+
+            if (utenti[i].sospeso) {
+                //mostra messaggio di sospensione
+            }
+
+            var eta = document.getElementById("eta");
+            eta.innerHTML = "Et&agrave: " + utenti[i].eta;
+
+            var genere = document.getElementById("genere");
+            genere.innerHTML = "Genere: " + utenti[i].genere;
+
+            var uni = document.getElementById("uni");
+            uni.innerHTML = "Universit&agrave: " + utenti[i].facolta;
+
+            var hobby = document.getElementById("hobby");
+            hobby.innerHTML = "Hobby: "
+            for (var x = 0; x < annuncio[i].hobby.length; x++) {
+                hobby.innerHTML = hobby.innerHTML + annuncio[i].hobby[x] + "; ";
+            }
+
+            var descrizione = document.getElementById("descrizione");
+            descrizione.innerHTML = "Descrizione: " + utenti[i].descrizione;
+
+            //recensioni
+
+        }
+        scrivi();
+
+    </script>
 </body>
 </html>

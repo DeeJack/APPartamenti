@@ -142,8 +142,9 @@
             proprietario.innerHTML = annuncio[i].proprietario.name;
 
             var servizi = document.getElementById("servizi");
+            servizi.innerHTML = "Servizi: ";
             for (var x = 0; x < annuncio[i].servizi.length; x++) {
-                servizi.innerHTML = servizi.innerHTML + ", " + annuncio[i].servizi[x];
+                servizi.innerHTML = servizi.innerHTML + annuncio[i].servizi[x] + ", ";
             }
 
         }
