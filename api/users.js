@@ -57,7 +57,7 @@ router.post('/', urlencodedParser, (request, response) => {
     const dbConnect = dbo.getDb();
 
     const userDocument = {
-        name: request.body['name'],
+        nome: request.body['nome'],
         email: request.body['email'],
         password: request.body['password'],
         eta: request.body['eta'],
