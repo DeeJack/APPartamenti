@@ -25,6 +25,20 @@ router.get('/', (request, response) => {
 
 router.get('/:id/', (request, response) => {
     const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection("utenti")
+        .findOne({"_id": new ObjectId(request.params['id'])}, function (err, result) {
+            if (err) {
+                response.status(400).send("Error fetching listings!");
+            } else {
+                response.json(result);
+            }
+        });
+})
+
+router.get('/:id/annuncio/', (request, response) => {
+    const dbConnect = dbo.getDb();
     console.log(request.params['id'])
 
     dbConnect
