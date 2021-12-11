@@ -5,6 +5,6 @@
     "\\public",
     "\\public\\views"
   ],
-  "SelectedNode": "\\public\\views\\utente.html",
+  "SelectedNode": "\\api\\users.js",
   "PreviewInSolutionExplorer": false
 }
