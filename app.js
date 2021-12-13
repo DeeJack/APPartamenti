@@ -10,6 +10,8 @@ var mongodb = require('./api/database')
 mongodb.connectToServer((err) => {
     if (err)
         console.error(err)
+    else
+        console.log('Connected to MongoDB')
 })
 
 const port = 80
@@ -57,3 +59,5 @@ app.use('/users/', users)
 app.listen(port, () => {
     console.log('listening on port:', port)
 })
+
+module.exports = app

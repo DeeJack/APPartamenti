@@ -11,17 +11,22 @@ const client = new MongoClient(connectionString, {
 let dbConnection;
 
 module.exports = {
-    connectToServer: function (callback) {
-        client.connect(function (err, db) {
-            if (err || !db) {
-                return callback(err);
-            }
-
+    connectToServer: async function (callback) {
+        if (!dbConnection) {
+            const db = await client.connect();
             dbConnection = db.db("APPartamenti");
-            console.log("Successfully connected to MongoDB.");
+        }
+        //  .connect(async function (err, db) {
+        //     if (err || !db) {
+        //         return callback(err);
+        //     }
 
-            return callback();
-        });
+
+        //     console.log("Successfully connected to MongoDB.");
+
+        //     return callback();
+        // });
+        return callback();
     },
 
     getDb: function () {
