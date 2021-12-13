@@ -1,5 +1,8 @@
 var express = require('express')
 var router = express.Router();
+
+router.use(express.json())
+
 var dbo = require("./database")
 var bodyParser = require('body-parser');
 const {
@@ -43,8 +46,7 @@ router.get('/:id', (request, response) => {
 })
 
 router.post('/', urlencodedParser, (request, response) => {
-    console.log('Got body:', request.body);
-    const dbConnect = dbo.getDb();  // Ottiene la connessione al database
+    const dbConnect = dbo.getDb(); // Ottiene la connessione al database
 
     const matchDocument = { // Crea un oggetto prendendo le informazioni dal body
         titolo: request.body['titolo'],
@@ -68,14 +70,13 @@ router.post('/', urlencodedParser, (request, response) => {
             if (err) {
                 response.status(400).send("Error inserting listings!");
             } else {
-                console.log(`Added a new match with id ${result.insertedId}`);
                 response.status(204).send();
             }
         });
 })
 
 router.put('/', (request, response) => {
-    const dbConnect = dbo.getDb();  // Ottiene la connessione al database
+    const dbConnect = dbo.getDb(); // Ottiene la connessione al database
     const listingQuery = {
         _id: new ObjectId(request.body['_id']) // Prende l'ID dell'annuncio da modificare
     };
@@ -96,7 +97,6 @@ router.put('/', (request, response) => {
         }
     };
     updates.$set.proprietario._id = new ObjectId(updates.$set.proprietario._id)
-    console.log(updates)
 
     dbConnect
         .collection("annunci")
@@ -104,9 +104,7 @@ router.put('/', (request, response) => {
             if (err) {
                 response.status(400).send(`Error updating likes on listing with id ${listingQuery.id}!`);
             } else {
-                console.log(_result)
                 response.send('Updated')
-                console.log("1 document updated");
             }
         });
 })
@@ -124,7 +122,6 @@ router.delete('/:id', (request, response) => {
                 response.status(400).send(`Error deleting listing with id ${listingQuery.listing_id}!`);
             } else {
                 response.redirect('/')
-                console.log("1 document deleted");
             }
         });
 })
