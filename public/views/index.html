@@ -51,7 +51,7 @@
     <div id="new"></div>
     <script>
         async function asd() {
-            var annuncio = await (await fetch('/annunci')).json()
+            var annuncio = await (await fetch('/annunci')).json();
             console.log(annuncio);
             for (var i = 0; i < annuncio.length; i++) {
                 var principale = document.createElement("div");
