@@ -3,8 +3,9 @@
     "",
     "\\api",
     "\\public",
+    "\\public\\icons",
     "\\public\\views"
   ],
-  "SelectedNode": "\\api\\users.js",
+  "SelectedNode": "\\public\\views\\index.html",
   "PreviewInSolutionExplorer": false
 }
