@@ -4,12 +4,16 @@ var app = express()
 var cookieParser = require('cookie-parser');
 dotenv.config() // Load the .env file
 var dbo = require("./api/database")
-const { ObjectId } = require('bson');
+const {
+    ObjectId
+} = require('bson');
 
 var mongodb = require('./api/database')
 mongodb.connectToServer((err) => {
     if (err)
         console.error(err)
+    //else
+        //console.log('Connected to MongoDB')
 })
 
 const port = 80
@@ -21,7 +25,6 @@ app.use(cookieParser())
 
 app.use(function (request, response, next) {
     if (request.cookies.user == undefined) {
-        console.log('asd')
         const dbConnect = dbo.getDb();
         dbConnect
             .collection("utenti")
@@ -32,14 +35,11 @@ app.use(function (request, response, next) {
                     response.status(400).send("Error fetching user!");
                 } else {
                     response.cookie('user', result)
-                    console.log(response.get('Cookie'))
                 }
                 next();
             });
-    }
-    else
+    } else
         next();
-    console.log(request.cookies.user)
 })
 
 app.get('/', (request, response) => {
@@ -54,6 +54,15 @@ app.use('/annunci/', annunci)
 app.use('/roles/', roles)
 app.use('/users/', users)
 
-app.listen(port, () => {
-    console.log('listening on port:', port)
+const server = app.listen(port, () => {
+    //console.log('listening on port:', port)
 })
+
+
+process.on('SIGTERM', () => {
+    server.close(() => {
+        console.log('Process terminated')
+    })
+})
+
+module.exports = app

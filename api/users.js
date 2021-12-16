@@ -39,7 +39,6 @@ router.get('/:id/', (request, response) => {
 
 router.get('/:id/annuncio/', (request, response) => {
     const dbConnect = dbo.getDb();
-    console.log(request.params['id'])
 
     dbConnect
         .collection("annunci")
@@ -53,7 +52,6 @@ router.get('/:id/annuncio/', (request, response) => {
 })
 
 router.post('/', urlencodedParser, (request, response) => {
-    console.log('Got body:', request.body);
     const dbConnect = dbo.getDb();
 
     const userDocument = {
@@ -75,7 +73,6 @@ router.post('/', urlencodedParser, (request, response) => {
             if (err) {
                 response.status(400).send("Error inserting user!");
             } else {
-                console.log(`Added a new match with id ${result.insertedId}`);
                 response.status(204).send();
             }
         });
