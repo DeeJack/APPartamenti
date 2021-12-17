@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profilo</title>
+    <title>Cerca utenti</title>
     <script defer>
-        async function asd() {
+        /*async function asd() {
             var annuncio = await (await fetch('/annunci?id=1')).json()
             console.log(annuncio)
         }
-        asd();
+        asd();*/
     </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,37 +52,103 @@
         </div>
     </nav>
 
-    <div class="container" style="margin-top:30px; padding:30px">
-        <form>
-            <div class="form-group">
-                <label for="nomeUtente">Nome utente</label>
-                <input type="text" class="form-control" id="nomeUtente" placeholder="Nome utente">
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                    Ricerca
+                </a>
             </div>
-            <div class="form-group">
-                <label for="genere">Genere</label>
-                <select class="form-control" id="genere" aria-label="Default select example">
-                    <option selected>-</option>
-                    <option value="M">M</option>
-                    <option value="F">F</option>
-                    <option value="Qualsiasi">Qualsiasi</option>
-                </select>
+            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <form id="myForm" onsubmit="return isValidForm()">
+                        <script>function isValidForm() { return false; }</script>
+                        <div class="form-group">
+                            <label for="nomeUtente">Nome utente</label>
+                            <input type="text" class="form-control" name="nome" id="nomeUtente" placeholder="Nome utente">
+                        </div>
+                        <div class="form-group">
+                            <label for="genere">Genere</label>
+                            <select class="form-control" id="genere" name="genere" aria-label="Default select example">
+                                <option selected>-</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                                <option value="Qualsiasi">Qualsiasi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="etaMin">Et&agrave minima</label>
+                            <input type="number" class="form-control" name="etaMin" id="etaMin" placeholder="Da">
+                            <input type="number" class="form-control" name="etaMax" id="etaMax" placeholder="A">
+                        </div>
+                        <div class="form-group">
+                            <label for="uni">Universit&agrave</label>
+                            <input type="text" class="form-control" name="uni" id="uni" placeholder="Universit&agrave">
+                        </div>
+                        <div class="form-group">
+                            <label for="hobby">Hobby</label>
+                            <input type="text" class="form-control" name="hobby" id="hobby" placeholder="Hobby">
+                            <small>Separa i vari hobby con ;</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="cercaUtenti()">Cerca</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="etaMin">Et&agrave</label>
-                <input type="number" class="form-control" id="etaMin" placeholder="Da">
-                <input type="number" class="form-control" id="etaMax" placeholder="A">
-            </div>
-            <div class="form-group">
-                <label for="uni">Universit&agrave</label>
-                <input type="text" class="form-control" id="uni" placeholder="Universit&agrave">
-            </div>
-            <div class="form-group">
-                <label for="hobby">Riscaldamento</label>
-                <input type="text" class="form-control" id="hobby" placeholder="Hobby">
-                <small>Separa i vari hobby con ;</small>
-            </div>
-            <button type="submit" class="btn btn-primary">Cerca</button>
-        </form>
+        </div>
     </div>
+    <div id="demo"></div>
+    <script>
+        async function cercaUtenti() {
+            var elements = document.forms[0].elements;
+            var params = {};
+            console.log(elements.length);
+            for (var i = 0; i < elements.length; i++) {
+                var item = elements.item(i);
+                params[item.name] = item.value;
+            }
+
+            var utenti = await (await fetch('/users')).json();
+
+            if (params.nome == "" && params.genere == "-" && params.etaMin == "" && params.etaMax == "" && params.uni == "")
+                console.log("form vuoto");
+            else
+                //stampa risultati pertinenti
+
+            /*for (var j = 0; j < utenti.length; j++) {
+                var vuoto = true;
+                if (params.nome != "" && params.nome == utenti[j].nome) {
+                    console.log(params.nome);
+                    vuoto = false;
+                }
+                if (params.genere != "" && params.genere == utenti[j].genere) {
+                    console.log(params.genere);
+                    vuoto = false;
+                } else {
+                    console.log("genere no");
+                }
+                if (params.etaMin != "" && params.etaMax != "" && params.etaMin <= utenti[j].eta && params.etaMax >= utenti[j].eta) {
+                    console.log(params.etaMin);
+                    vuoto = false;
+                }
+                if (params.etaMax != "" && params.etaMax >= utenti[j].eta) {
+                    console.log(params.etaMax);
+                    vuoto = false;
+                }
+                if (params.etaMin != "" && params.etaMin <= utenti[j].eta) {
+                    console.log(params.etaMin);
+                    vuoto = false;
+                }
+                if (params.uni != "" && params.uni == utenti[j].facolta) {
+                    console.log(params.uni);
+                    vuoto = false;
+                }
+                    
+            }*/
+
+            document.getElementById("demo").innerHTML = params.uni;
+            var temp = document.getElementById("collapseOne");
+            temp.className = "collapse hide";
+        }
+    </script>
 </body>
 </html>
