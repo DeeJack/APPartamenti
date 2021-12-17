@@ -1,6 +1,40 @@
 var express = require('express')
 var router = express.Router();
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Express API for APPartamenti',
+            version: '1.0.0',
+            description:
+                'This is a REST API application made with Express.',
+            license: {
+                name: 'Licensed Under MIT',
+                url: 'https://spdx.org/licenses/MIT.html',
+            },
+            contact: {
+                name: 'Group47',
+                url: 'https://github.com/GioZeni',
+                url: 'https://github.com/DeeJack',
+                url: 'https://github.com/eprovvedini',
+            },
+        },
+        servers: [
+            {
+                url: 'https://localhost/annunci/',
+                description: 'server Annunci',
+            },
+        ],
+    },
+    apis: ["annunci.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 router.use(express.json())
 
 var dbo = require("./database")
