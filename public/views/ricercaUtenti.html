@@ -96,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div id="demo"></div>
+    <div id="new"></div>
     <script>
         async function cercaUtenti() {
             var elements = document.forms[0].elements;
@@ -112,6 +112,33 @@
             if (params.nome == "" && params.genere == "-" && params.etaMin == "" && params.etaMax == "" && params.uni == "")
                 console.log("form vuoto");
             else
+                for (var j = 0; j < utenti.length; j++) {
+                    var stampa = false;
+                    if (params.name != "" && params.name == utenti[j].nome) {
+                        stampa = true;
+                    } else if (params.genere != "-" && params.genere == utenti[j].genere){
+                        stampa = true;
+                    }
+                    if (stampa) {
+                        var principale = document.createElement("div");
+                        principale.className = "card";
+                        var body = document.createElement("div");
+                        body.className = "card-body";
+                        var titolo = document.createElement("h4");
+                        titolo.innerHTML = utenti[j].nome;
+                        var bottone = document.createElement("a");
+                        bottone.className = "btn btn-primary";
+                        bottone.href = "utente.html?id=" + j;
+                        bottone.innerHTML = "Vedi utente";
+                        var spazio = document.createElement("br");
+                        body.append(titolo);
+                        body.append(spazio);
+                        body.append(bottone);
+                        principale.appendChild(body);
+                        var element = document.getElementById("new");
+                        element.appendChild(principale);
+                    }
+                }
                 //stampa risultati pertinenti
 
             /*for (var j = 0; j < utenti.length; j++) {
