@@ -29,11 +29,11 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ["annunci.js"]
+    apis: ["api/annunci.js"]
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 router.use(express.json())
 
@@ -117,7 +117,6 @@ var urlencodedParser = bodyParser.urlencoded({
  *       400:
  *         description: error fetching listings!
  */        
-
 router.get('/', (request, response) => {
     const dbConnect = dbo.getDb(); // Ottiene la connessione al database
 
