@@ -60,6 +60,8 @@
                 body.className = "card-body";
                 var immagine = document.createElement("div");
                 immagine.className = "fakeimg";
+                immagine.style.backgroundImage = `url("${annuncio[i].foto[0]}")`;
+                immagine.style.backgroundSize = 'cover';
                 var titolo = document.createElement("h4");
                 titolo.innerHTML = annuncio[i].titolo;
                 var bottone = document.createElement("a");
