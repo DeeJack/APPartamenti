@@ -101,7 +101,6 @@
         async function cercaUtenti() {
             var elements = document.forms[0].elements;
             var params = {};
-            console.log(elements.length);
             for (var i = 0; i < elements.length; i++) {
                 var item = elements.item(i);
                 params[item.name] = item.value;
@@ -109,12 +108,17 @@
 
             var utenti = await (await fetch('/users')).json();
 
-            if (params.nome == "" && params.genere == "-" && params.etaMin == "" && params.etaMax == "" && params.uni == "")
+            var vuoto = false;
+
+            if (params.nome == "" && params.genere == "-" && params.etaMin == "" && params.etaMax == "" && params.uni == "") {
+                vuoto = true;
                 console.log("form vuoto");
-            else
+            }
                 for (var j = 0; j < utenti.length; j++) {
                     var stampa = false;
-                    if (params.name != "" && params.name == utenti[j].nome) {
+                    if (vuoto)
+                        stampa = true;
+                    if (params.nome != "" && params.nome == utenti[j].nome) {
                         stampa = true;
                     } else if (params.genere != "-" && params.genere == utenti[j].genere){
                         stampa = true;
@@ -139,40 +143,7 @@
                         element.appendChild(principale);
                     }
                 }
-                //stampa risultati pertinenti
 
-            /*for (var j = 0; j < utenti.length; j++) {
-                var vuoto = true;
-                if (params.nome != "" && params.nome == utenti[j].nome) {
-                    console.log(params.nome);
-                    vuoto = false;
-                }
-                if (params.genere != "" && params.genere == utenti[j].genere) {
-                    console.log(params.genere);
-                    vuoto = false;
-                } else {
-                    console.log("genere no");
-                }
-                if (params.etaMin != "" && params.etaMax != "" && params.etaMin <= utenti[j].eta && params.etaMax >= utenti[j].eta) {
-                    console.log(params.etaMin);
-                    vuoto = false;
-                }
-                if (params.etaMax != "" && params.etaMax >= utenti[j].eta) {
-                    console.log(params.etaMax);
-                    vuoto = false;
-                }
-                if (params.etaMin != "" && params.etaMin <= utenti[j].eta) {
-                    console.log(params.etaMin);
-                    vuoto = false;
-                }
-                if (params.uni != "" && params.uni == utenti[j].facolta) {
-                    console.log(params.uni);
-                    vuoto = false;
-                }
-                    
-            }*/
-
-            document.getElementById("demo").innerHTML = params.uni;
             var temp = document.getElementById("collapseOne");
             temp.className = "collapse hide";
         }
