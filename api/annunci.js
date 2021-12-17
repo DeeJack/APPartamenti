@@ -47,6 +47,76 @@ var urlencodedParser = bodyParser.urlencoded({
     extended: false
 })
 
+/**
+ * @swagger
+ * /annunci/:
+ *   get:
+ *     summary: Recupera una lista di annunci.
+ *     description: Recupera una lista di annunci dal server.
+ *     responses:
+ *       200:
+ *         description: Una lista di 50 annunci.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: oggetto
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       Titolo:
+ *                         type: string
+ *                         description: Il titolo dell'annuncio
+ *                         example: Stanza singola Urbino Centro
+ *                       Ubicazione:
+ *                         type: string
+ *                         description: L'uicazone dell'appartamento
+ *                         example: Urbino
+ *                       Numero di camere: 
+ *                         type: integer
+ *                         description: Il numero di camere dell'appartamento
+ *                         example: 1
+ *                       Prezzo:
+ *                         type: double
+ *                         description: Il prezzo mensile dell'affitto (in €)
+ *                         example: 290.00
+ *                       Numero di bagni:
+ *                          type: integer
+ *                          description: Il numero di bagni dell'appartamento
+ *                          example: 1
+ *                       Isolamento:
+ *                          type: string
+ *                          description: Il tipo di isolamento dell'appartamento
+ *                          example: cappotto isolante 
+ *                       Riscaldamento:
+ *                          type: string
+ *                          description: Il tipo di riscaldamento dell'appartamento
+ *                          example: a pavimento
+ *                       Classe energetica:
+ *                          type: string
+ *                          description: La classe energetica dell'appartamento
+ *                          example: D
+ *                       Wifi:
+ *                          type: boolean
+ *                          description: Presenza del wifi
+ *                          example: true
+ *                       Servizi:
+ *                          type: string
+ *                          description: I servizi nella zona dell'appartamento
+ *                          example: autobus di linea
+ *                       Inquilini:
+ *                          type: array
+ *                          description: Gli inquilini dell'appartamento 
+ *                          example: Giovanni Zeni
+ *                       foto:
+ *                          type: array
+ *                          description: Foto dell'appartamento
+ *                          example: 
+ *       400:
+ *         description: error fetching listings!
+ */        
 
 router.get('/', (request, response) => {
     const dbConnect = dbo.getDb(); // Ottiene la connessione al database
@@ -63,6 +133,77 @@ router.get('/', (request, response) => {
         });
 })
 
+/**
+ * @swagger
+ * /annunci/:id:
+ *   get:
+ *     summary: Recupera un annuncio.
+ *     parameters :
+ *      - name: AnnuncioId
+ *        in: path
+ *        required: true
+ *     description: Recupera un annuncio tramite un id.
+ *     responses:
+ *       200:
+ *         description: Cerca annuncio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: oggetto
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       Titolo:
+ *                         type: string
+ *                         description: Il titolo dell'annuncio
+ *                         example: Stanza singola Roma Nord
+ *                       Ubicazione:
+ *                         type: string
+ *                         description: L'uicazone dell'appartamento
+ *                         example: Roma Nord
+ *                       Numero di camere: 
+ *                         type: integer
+ *                         description: Il numero di camere dell'appartamento
+ *                         example: 2
+ *                       prezzo massimo:
+ *                          type: double
+ *                          description: Prezzo dell'affitto (in €)
+ *                          example: 450.00
+ *                       Isolamento:
+ *                          type: string
+ *                          description: Il tipo di isolamento dell'appartamento
+ *                          example: cappotto isolante 
+ *                       Riscaldamento:
+ *                          type: string
+ *                          description: Il tipo di riscaldamento dell'appartamento
+ *                          example: a pavimento
+ *                       Classe energetica:
+ *                          type: string
+ *                          description: La classe energetica dell'appartamento
+ *                          example: D
+ *                       Wifi:
+ *                          type: boolean
+ *                          description: Presenza del wifi
+ *                          example: true
+ *                       Servizi:
+ *                          type: string
+ *                          description: I servizi nella zona dell'appartamento
+ *                          example: metropolitana
+ *                       Inquilini:
+ *                          type: array
+ *                          description: Gli inquilini dell'appartamento 
+ *                          example: Giovanni Zeni
+ *                       foto:
+ *                          type: array
+ *                          description: Foto dell'appartamento
+ *                          example:  
+ *       400:
+ *         description: error fetching listings!
+ */        
+
 router.get('/:id', (request, response) => {
     const dbConnect = dbo.getDb(); // Ottiene la connessione al database
 
@@ -78,6 +219,69 @@ router.get('/:id', (request, response) => {
             }
         });
 })
+
+/**
+ * @swagger
+ * /annunci/:
+ *   post:
+ *     summary: crea un annuncio.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               Titolo:
+ *                  type: array
+ *                  description: Titolo dell'annuncio
+ *                  example: Camera in doppia a Milano
+ *               Ubicazione:
+ *                  type: string
+ *                  description: Ubicazione dell'appartamento
+ *                  example: Milano
+ *               Numero di camere: 
+ *                  type: integer
+ *                  description: Numero di camere dell'appartamento
+ *                  example: 2
+ *               Prezzo:
+ *                  type: double
+ *                  description: Prezzo dell'affitto (in €)
+ *                  example: 400 
+ *               Numero di bagni:
+ *                  type: integer
+ *                  description: Numero di bagni 
+ *                  example: 1
+ *               Isolamento:
+ *                  type: string
+ *                  description: Tipo di isolamento
+ *                  example: cappotto isolante
+ *               Riscaldamento:
+ *                  type: string
+ *                  description: Tipo di riscaldamento
+ *                  example: riscaldamento ad aria
+ *               Classe energetica:
+ *                  type: string
+ *                  description: Classe energetica dell'appartamento
+ *                  example: C
+ *               Wifi:
+ *                  type: boolean
+ *                  description: Presenza del Wi-fi
+ *                  example: true
+ *               Servizi:
+ *                  type: string
+ *                  description: Servizi pubblici vicini all'appartamento
+ *                  example: Metropolitana, autobus di linea
+ *               foto:
+ *                  type: array
+ *                  description: Foto dell'appartamento
+ *                  example: 
+ *     responses:
+ *       204:
+ *         description: eseguito con successo
+ *       400:
+ *         description: error inserting listings!
+*/
 
 router.post('/', urlencodedParser, (request, response) => {
     const dbConnect = dbo.getDb(); // Ottiene la connessione al database
@@ -142,6 +346,25 @@ router.put('/', (request, response) => {
             }
         });
 })
+
+/**
+ * @swagger
+ * /annunci/{id}:
+ *   delete:
+ *     summary: Cancella un annuncio.
+ *     parameters:
+ *       - in: path
+ *         id: id
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: id dell'annuncio
+ *     responses:
+ *       200:
+ *         description: l'annuncio è stato cancellato con successo!
+ *       400:
+ *         description: errore! cancellazone non avvenuta!
+*/
 
 router.delete('/:id', (request, response) => {
     const dbConnect = dbo.getDb();
