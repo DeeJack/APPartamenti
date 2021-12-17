@@ -83,6 +83,7 @@ dbo.connectToServer(() => {}).then(() => { // Connect to the database
             .expect(200)
             .end((error, response) => {
                 assert.error(error, 'No error')
+                assert.isEqual('Updated', response.text, 'Updated successfully')
                 assert.end()
             })
     })

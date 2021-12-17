@@ -19,6 +19,7 @@
         .fakeimg {
             height: 300px;
             background: #aaa;
+            background-size: cover;
         }
     </style>
     <script>
@@ -147,6 +148,11 @@
                 servizi.innerHTML = servizi.innerHTML + annuncio[i].servizi[x] + ", ";
             }
 
+            let foto = annuncio[i].foto;
+            for (let k = 0; k < foto.length; k++) {
+                console.log(document.getElementsByClassName('fakeimg'))
+                document.getElementsByClassName('fakeimg')[k].style.backgroundImage = `url("${foto}")`;
+            }
         }
         scrivi();
         
