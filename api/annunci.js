@@ -63,8 +63,9 @@ var urlencodedParser = bodyParser.urlencoded({
  *         - Classe energetica
  *         - Wifi
  *         - Servizi
- *         - Inquilini
  *         - foto
+ *         - data ultma modifica
+ *         - proprietario
  *       properties:
  *         id: 
  *           type: string
@@ -99,12 +100,15 @@ var urlencodedParser = bodyParser.urlencoded({
  *         Servizi:
  *           type: string
  *           description: I servizi nella zona dell'appartamento
- *         Inquilini:
+ *         Proprietario:
  *           type: array
- *           description: Gli inquilini dell'appartamento 
+ *           description: Il proprietario dell'annuncio 
  *         foto:
  *           type: array
  *           description: Foto dell'appartamento
+ *         data ultima modifica:
+ *           type: string
+ *           description: data dell'ultima modifica effettuata sull'annuncio 
  *       example:
  *         id: Ge47h2
  *         Titolo: Stanza singola Urbino Centro
@@ -117,8 +121,9 @@ var urlencodedParser = bodyParser.urlencoded({
  *         Classe energetica: D
  *         Wifi: true
  *         Servizi: autobus di linea
- *         Inquilini: Giovanni Zeni
+ *         Proprietario: Giovanni Zeni
  *         foto:
+ *         data ultima modifica: 18/12/2021
  */
 
 /**
@@ -134,7 +139,6 @@ var urlencodedParser = bodyParser.urlencoded({
  *   get:
  *     summary: Recupera una lista di annunci.
  *     tags: [Annunci]
- *     description: Recupera una lista di annunci dal server.
  *     responses:
  *       200:
  *         description: Una lista di 50 annunci.
@@ -167,20 +171,20 @@ router.get('/', (request, response) => {
  *   get:
  *     summary: Recupera un annuncio.
  *     tags: [Annunci]
- *     parameters :
- *      - name: Annuncio_Id
- *        in: path
+ *     parameters:
+ *      - in: path
+ *        name: Annuncio_Id
+ *        schema:
+ *          type: string
  *        required: true
- *     description: Recupera un annuncio tramite un id.
+ *        description: Recupera un annuncio tramite un id.
  *     responses:
  *       200:
  *         description: Cerca annuncio.
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Annunci'
+ *               $ref: '#/components/schemas/Annunci'
  *       400:
  *         description: error fetching listings!
  */        
