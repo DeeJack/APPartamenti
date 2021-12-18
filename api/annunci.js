@@ -59,7 +59,7 @@ var urlencodedParser = bodyParser.urlencoded({
  *         content:
  *           application/json:
  *             schema:
- *               type: oggetto
+ *               type: object
  *               properties:
  *                 data:
  *                   type: array
@@ -138,7 +138,7 @@ router.get('/', (request, response) => {
  *   get:
  *     summary: Recupera un annuncio.
  *     parameters :
- *      - name: AnnuncioId
+ *      - name: Annuncio_Id
  *        in: path
  *        required: true
  *     description: Recupera un annuncio tramite un id.
@@ -148,7 +148,7 @@ router.get('/', (request, response) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: oggetto
+ *               type: object
  *               properties:
  *                 data:
  *                   type: array
@@ -246,7 +246,7 @@ router.get('/:id', (request, response) => {
  *               Prezzo:
  *                  type: double
  *                  description: Prezzo dell'affitto (in €)
- *                  example: 400 
+ *                  example: 400.00
  *               Numero di bagni:
  *                  type: integer
  *                  description: Numero di bagni 
@@ -312,6 +312,125 @@ router.post('/', urlencodedParser, (request, response) => {
         });
 })
 
+/**
+ * @swagger
+ * /annunci/{id}:
+ *  put:
+ *    summary: aggiorna un annuncio tramite un id
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: id dell'annuncio
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *             type: object
+ *             properties:
+ *               Titolo:
+ *                  type: array
+ *                  description: Titolo dell'annuncio
+ *                  example: Camera in doppia a Milano
+ *               Ubicazione:
+ *                  type: string
+ *                  description: Ubicazione dell'appartamento
+ *                  example: Milano
+ *               Numero di camere: 
+ *                  type: integer
+ *                  description: Numero di camere dell'appartamento
+ *                  example: 2
+ *               Prezzo:
+ *                  type: double
+ *                  description: Prezzo dell'affitto (in €)
+ *                  example: 400.00
+ *               Numero di bagni:
+ *                  type: integer
+ *                  description: Numero di bagni 
+ *                  example: 1
+ *               Isolamento:
+ *                  type: string
+ *                  description: Tipo di isolamento
+ *                  example: cappotto isolante
+ *               Riscaldamento:
+ *                  type: string
+ *                  description: Tipo di riscaldamento
+ *                  example: riscaldamento ad aria
+ *               Classe energetica:
+ *                  type: string
+ *                  description: Classe energetica dell'appartamento
+ *                  example: C
+ *               Wifi:
+ *                  type: boolean
+ *                  description: Presenza del Wi-fi
+ *                  example: true
+ *               Servizi:
+ *                  type: string
+ *                  description: Servizi pubblici vicini all'appartamento
+ *                  example: Metropolitana, autobus di linea
+ *               foto:
+ *                  type: array
+ *                  description: Foto dell'appartamento
+ *                  example:
+ *    responses:
+ *      200:
+ *        description: L'annuncioè stato aggiornato
+ *        content:
+ *          application/json:
+ *            schema:
+ *             type: object
+ *             properties:
+ *               Titolo:
+ *                  type: array
+ *                  description: Titolo dell'annuncio
+ *                  example: Camera in doppia a Milano
+ *               Ubicazione:
+ *                  type: string
+ *                  description: Ubicazione dell'appartamento
+ *                  example: Milano
+ *               Numero di camere: 
+ *                  type: integer
+ *                  description: Numero di camere dell'appartamento
+ *                  example: 2
+ *               Prezzo:
+ *                  type: double
+ *                  description: Prezzo dell'affitto (in €)
+ *                  example: 400.00
+ *               Numero di bagni:
+ *                  type: integer
+ *                  description: Numero di bagni 
+ *                  example: 1
+ *               Isolamento:
+ *                  type: string
+ *                  description: Tipo di isolamento
+ *                  example: cappotto isolante
+ *               Riscaldamento:
+ *                  type: string
+ *                  description: Tipo di riscaldamento
+ *                  example: riscaldamento ad aria
+ *               Classe energetica:
+ *                  type: string
+ *                  description: Classe energetica dell'appartamento
+ *                  example: C
+ *               Wifi:
+ *                  type: boolean
+ *                  description: Presenza del Wi-fi
+ *                  example: true
+ *               Servizi:
+ *                  type: string
+ *                  description: Servizi pubblici vicini all'appartamento
+ *                  example: Metropolitana, autobus di linea
+ *               foto:
+ *                  type: array
+ *                  description: Foto dell'appartamento
+ *                  example:
+ *              
+ *      400:
+ *        description: Si è verificato un errore nell'aggiornamento dell'annuncio  
+ */
 router.put('/', (request, response) => {
     const dbConnect = dbo.getDb(); // Ottiene la connessione al database
     const listingQuery = {
