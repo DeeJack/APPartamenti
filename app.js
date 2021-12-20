@@ -7,6 +7,8 @@ var dbo = require("./api/database")
 const {
     ObjectId
 } = require('bson');
+const cors = require('cors')
+app.use(cors())
 
 var mongodb = require('./api/database')
 mongodb.connectToServer((err) => {

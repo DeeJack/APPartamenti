@@ -23,7 +23,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'https://localhost/annunci/',
+                url: 'http://localhost/annunci/',
                 description: 'server Annunci',
             },
         ],
@@ -135,7 +135,7 @@ var urlencodedParser = bodyParser.urlencoded({
 
 /**
  * @swagger
- * /annunci/:
+ * /:
  *   get:
  *     summary: Recupera una lista di annunci.
  *     tags: [Annunci]
@@ -167,7 +167,7 @@ router.get('/', (request, response) => {
 
 /**
  * @swagger
- * /annunci/{id}:
+ * /{id}:
  *   get:
  *     summary: Recupera un annuncio.
  *     tags: [Annunci]
@@ -207,7 +207,7 @@ router.get('/:id', (request, response) => {
 
 /**
  * @swagger
- * /annunci/:
+ * /:
  *   post:
  *     summary: crea un annuncio.
  *     tags: [Annunci]
@@ -258,7 +258,7 @@ router.post('/', urlencodedParser, (request, response) => {
 
 /**
  * @swagger
- * /annunci/{id}:
+ * /{id}:
  *  put:
  *    summary: aggiorna un annuncio tramite un id
  *    tags: [Annunci]
@@ -322,7 +322,7 @@ router.put('/', (request, response) => {
 
 /**
  * @swagger
- * /annunci/{id}:
+ * /{id}:
  *   delete:
  *     summary: Cancella un annuncio.
  *     tags: [Annunci]
