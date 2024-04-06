@@ -98,4 +98,8 @@ Team G47:
 - [Elisabetta Provvedini](https://github.com/eprovvedini)
 - [Giovanni Zeni](https://github.com/GioZeni)
 
+## UML
+
+![UML](images/uml.png)
+
 ReadME template by: [kylelobo](https://github.com/kylelobo/The-Documentation-Compendium)
